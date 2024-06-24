@@ -1,3 +1,4 @@
+NOTE: A NEW UPDATE (v1.0.1) IS AVAILABLE FOR THE FLUTTER ToDo LIST APP. PACKED WITH IMPROVEMENTS, UPDATES, AND NEW FEATURES.
 # ToDo List App
 
 A minimalist ToDo List app built with Flutter, using minimal UI design principles. This app allows users to create, edit, and complete tasks with a clean and intuitive interface. Smooth animations enhance the user experience.
