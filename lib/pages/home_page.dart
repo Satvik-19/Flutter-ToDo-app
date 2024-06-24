@@ -12,27 +12,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Task> tasks = [];
 
-  void _addTask(String title) {
+  void _addTask(String title, DateTime? dueDate) {
     setState(() {
-      tasks.add(Task(title: title));
+      tasks.add(Task(title: title, dueDate: dueDate));
     });
   }
 
-  void _editTask(Task task, String title) {
+  void _editTask(int index, String title, DateTime? dueDate) {
     setState(() {
-      task.title = title;
+      tasks[index].title = title;
+      tasks[index].dueDate = dueDate;
     });
   }
 
-  void _toggleTaskCompletion(Task task) {
+  void _toggleTaskCompletion(int index) {
     setState(() {
-      task.isCompleted = !task.isCompleted;
+      tasks[index].isCompleted = !tasks[index].isCompleted;
     });
   }
 
-  void _deleteTask(Task task) {
+  void _deleteTask(int index) {
     setState(() {
-      tasks.remove(task);
+      tasks.removeAt(index);
     });
   }
 
@@ -40,44 +41,62 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToDo List'),
+        title: const Text('ToDo List'),
       ),
-      body: AnimationLimiter(
-        child: ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (context, index) {
-            return AnimationConfiguration.staggeredList(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              child: SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(
-                  child: TaskWidget(
-                    task: tasks[index],
-                    onEdit: _editTask,
-                    onToggleComplete: _toggleTaskCompletion,
-                    onDelete: _deleteTask,
+      body: Container(
+        color: Colors.grey[200], // Light grey background
+        child: AnimationLimiter(
+          child: ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: TaskWidget(
+                      task: tasks[index],
+                      onEdit: () => _navigateToEditTask(context, index),
+                      onDelete: () => _deleteTask(index),
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final result = await Navigator.push<String>(
+          final result = await Navigator.push<Map<String, dynamic>>(
             context,
             MaterialPageRoute(
               builder: (context) => TaskEditPage(),
             ),
           );
-          if (result != null && result.isNotEmpty) {
-            _addTask(result);
+          if (result != null && result['title'].isNotEmpty) {
+            _addTask(result['title'], result['dueDate']);
           }
         },
-        child: Icon(Icons.add),
+        backgroundColor: Colors.amberAccent, // Amber FAB color
+        child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void _navigateToEditTask(BuildContext context, int index) async {
+    final result = await Navigator.push<Map<String, dynamic>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskEditPage(
+          initialTitle: tasks[index].title,
+          initialDueDate: tasks[index].dueDate,
+        ),
+      ),
+    );
+    if (result != null && result['title'].isNotEmpty) {
+      _editTask(index, result['title'], result['dueDate']);
+    }
   }
 }

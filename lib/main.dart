@@ -12,6 +12,12 @@ class TodoListApp extends StatelessWidget {
       title: 'ToDo List App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Colors.blueAccent,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.blueAccent,
+          secondary: Colors.amberAccent,
+        ),
+        scaffoldBackgroundColor: Colors.grey[100],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
