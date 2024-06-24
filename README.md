@@ -1,16 +1,16 @@
-# todolist
+# ToDo List App
 
-A new Flutter project.
+A minimalist ToDo List app built with Flutter, using minimal UI design principles. This app allows users to create, edit, and complete tasks with a clean and intuitive interface. Smooth animations enhance the user experience.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Task Management**: Create, edit, and delete tasks effortlessly.
+- **Task Completion**: Mark tasks as completed or incomplete.
+- **Minimalist Design**: Bauhaus-inspired UI for a clean and modern look.
+- **Smooth Animations**: Staggered animations for task list interactions.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: For building the cross-platform app.
+- **Dart**: Programming language for Flutter.
+- **flutter_staggered_animations**: For smooth list animations.
